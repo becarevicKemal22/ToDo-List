@@ -11,6 +11,7 @@ body{
 }
 
 .listContainer{
+    margin: 2em;
     display: flex;
     gap: 2em;
     align-items: flex-start;
@@ -26,4 +27,8 @@ body{
 
 .cardModal.visible{
     display: block;
+}
+
+.nameInput{
+    border: none;
 }

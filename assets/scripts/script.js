@@ -29,6 +29,7 @@ class List{
         this.HTMLElement = document.importNode(listTemplate.content.firstElementChild, true);
         this.cardContainer = this.HTMLElement.querySelector('.cardList');
         this.addCardButton = this.cardContainer.querySelector('#addCard');
+        this.inputEl = this.HTMLElement.querySelector('.nameInput');
         this.addCardButton.addEventListener('click', event => {
             event.stopPropagation();
             this.addCard();
@@ -36,17 +37,24 @@ class List{
         this.cardContainer.addEventListener('click', event => {
             cardModal.classList.add('visible');
         })
+        this.inputEl.addEventListener('keydown', e => {
+            if(e.keyCode == 13){
+                this.inputEl.blur();
+            }
+        });
     }
+    
     focusInput(){
-        this.HTMLElement.querySelector('input').focus();
+        this.inputEl.focus();
     }
 
     addCard(){
-        this.cards.push(new Card());
-        console.log(this.cards.length);
-        this.cardContainer.insertAdjacentElement('afterBegin', this.cards[this.cards.length - 1].HTMLElement);
+        const newCard = new Card();
+        this.cards.push(newCard);
+        this.addCardButton.insertAdjacentElement('beforeBegin', newCard.HTMLElement);
+        newCard.focusInput();
     }
-    
+
     removeCard(card){
         for(cd of this.cards){
             if(card === cd){
@@ -55,13 +63,23 @@ class List{
         }
         this.cards.splice(index, 1);
     }
-
 }
 
 class Card{
     constructor(){
         this.HTMLElement = document.importNode(cardTemplate.content.firstElementChild, true);
         this.name = '';
+        this.inputEl = this.HTMLElement.querySelector('.nameInput');
+
+        this.inputEl.addEventListener('keydown', e => {
+            if(e.keyCode == 13){
+                this.inputEl.blur();
+            }
+        });
+    }
+
+    focusInput(){
+        this.inputEl.focus();
     }
 }
 
