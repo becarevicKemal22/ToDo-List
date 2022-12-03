@@ -5,9 +5,25 @@
     font: inherit;
 }
 
+body{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
 .listContainer{
     display: flex;
-    flex-wrap: wrap;
     gap: 2em;
     align-items: flex-start;
+}
+
+.cardModal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: 2px solid red;
+    display: none;
+}
+
+.cardModal.visible{
+    display: block;
 }
