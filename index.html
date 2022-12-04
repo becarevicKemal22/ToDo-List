@@ -8,6 +8,7 @@
     <script src="assets/scripts/script.js" defer></script>
     <script src="https://kit.fontawesome.com/8a54e0956e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/styles/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 500, 700" rel="stylesheet">
 
     <title>ToDo list</title>
 </head>
@@ -21,7 +22,7 @@
             <h1>MODAL IS WORKING</h1>
         </div>
         <div class="listContainer">
-            <button id="addListButton"><i class="fa-solid fa-square-plus"></i></button>
+            <button id="addListButton"><i class="fa-solid fa-square-plus"></i>Add another list</button>
         </div>
     </main>
     <template id="listTemplate">
@@ -34,7 +35,7 @@
     </template>
     <template id="cardTemplate">
         <div class="card">
-            <input type="text" name="cardName" id="cardName" class="nameInput">
+            <input type="text" name="cardName" id="cardName" class="nameInput cardNameInput">
         </div>
     </template>
 </body>

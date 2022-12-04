@@ -1,13 +1,47 @@
+:root{
+    --main-color: #25c8a2;
+    --main-color-lightened: #36d9b3;
+    --main-dark: #218c74;
+    --accent: #ffb142;
+    --white: #f5f4f3;
+    --gray: #8a9096;
+    --light-gray: #dfdede;
+    --list-gray: #e8ecef;
+}
+
 *, *::before, *::after{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font: inherit;
+    background-color: inherit;
 }
 
 body{
     height: 100vh;
     overflow-y: scroll;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    background-color: var(--main-dark);
+}
+
+header{
+    background-color: var(--main-color);
+    color: white;
+    font-size: 1.75rem;
+    padding: 0.8em;
+    text-align: center;
+    font-weight: 700;
+}
+
+button{
+    border: transparent solid;
+    cursor: pointer;
+    transition: transform 200ms;
+}
+
+button:hover{
+    background-color: var(--light-gray);
 }
 
 .listContainer{
@@ -15,6 +49,56 @@ body{
     display: flex;
     gap: 2em;
     align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.list{
+    padding: 1em;
+    background-color: var(--list-gray);
+    border-radius: 0.4em;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75em;
+}
+
+.list ul{
+    width: 100%;
+}
+
+.nameInput, .cardTitle{
+    border: 2px solid transparent;
+    font-weight: 700;
+    padding: 0.3em;
+    margin-bottom: 0;
+}
+
+.cardNameInput{
+    font-size: 0.9rem;
+    padding: 0.2em;
+    font-weight: 500;
+}
+
+.nameInput:focus{
+    outline: none;
+    border: 2px solid var(--main-color);
+    border-radius: 0.2em;
+}
+
+.cardList{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5em;
+}
+
+.card{
+    padding: 0.3em;
+    background-color: var(--white);
+    border-radius: 0.5em;
+    box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.075);
+
 }
 
 .cardModal{
@@ -29,6 +113,34 @@ body{
     display: block;
 }
 
-.nameInput{
-    border: none;
+#addListButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    color: var(--light-gray);
+    font-size: 1.3rem;
+}
+
+#addListButton i{
+    font-size: 2rem;
+}
+
+#addListButton:hover{
+    transform: translateX(2.5%);
+    background-color: transparent;
+    color: var(--white);
+}
+
+#addCard{
+    text-align: left;
+    padding: 0.25em;
+    width: 100%;
+    color: var(--gray);
+    font-weight: 300;
+    border-radius: 0.2em;
+}
+
+#addCard i{
+    padding-inline: 0.3em;
 }
