@@ -55,23 +55,27 @@ button:hover{
 
 .list{
     padding: 1em;
-    padding-bottom: 0.75em;
-    background-color: var(--list-gray);
     border-radius: 0.4em;
-    display:flex;
+    background-color: var(--list-gray);
+    display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.75em;
+    max-width: 25ch;
+    
 }
 
-.list .container{
+.cardList{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.listHeader{
     display: flex;
     justify-content: space-between;
 }
 
-.list ul{
-    width: 100%;
-}
 .nameInput, .cardTitle{
     border: 2px solid transparent;
     font-weight: 700;
@@ -97,25 +101,16 @@ button:hover{
     border-radius: 0.2em;
 }
 
-.cardList{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 80%;
-    gap: 0.5em;
-}
-
 .card{
     display: flex;
     justify-content: space-between;
-    padding: 0.3em;
+    padding: 0.4em;
     background-color: var(--white);
     border-radius: 0.5em;
     box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.075);
     cursor: pointer;
     font-weight: 500;
     transition: transform 200ms;
-    max-width: 20ch;
 }
 
 .card:hover{
@@ -131,7 +126,7 @@ button:hover{
 }
 
 .iconButton{
-    padding-inline: 0.2em;
+    padding-inline: 0.4em;
     color: var(--gray);
 }
 
@@ -168,11 +163,10 @@ button:hover{
 
 #addCard{
     text-align: left;
-    padding: 0.25em;
+    padding: 0.5em;
     color: var(--gray);
     font-weight: 300;
     border-radius: 0.4em;
-    max-width: 20ch;
 }
 
 #addCard i{
