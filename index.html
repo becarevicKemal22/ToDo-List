@@ -27,7 +27,10 @@
     </main>
     <template id="listTemplate">
         <div class="list">
-            <input type="text" name="listName" id="listName" class="nameInput">
+            <div class="listHeader">
+                <input type="text" name="listName" id="listName" class="nameInput">
+                <button class="iconButton"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
             <ul class="cardList">
                 <button id="addCard"><i class="fa-solid fa-clapperboard"></i>Add a card</button>
             </ul>
@@ -36,6 +39,7 @@
     <template id="cardTemplate">
         <div class="card">
             <input type="text" name="cardName" id="cardName" class="nameInput cardNameInput">
+            <button class="iconButton"><i class="fa-solid fa-pen-to-square"></i></button>
         </div>
     </template>
 </body>

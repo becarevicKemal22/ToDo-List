@@ -41,7 +41,20 @@ class List {
             this.addCard();
         });
         this.cardContainer.addEventListener("click", (event) => {
-            cardModal.classList.add("visible");
+            if (event.target.tagName.toLowerCase() === "ul") {
+                return;
+            }
+            if (
+                event.target.tagName.toLowerCase() === "button" ||
+                event.target.tagName.toLowerCase() === "i"
+            ) {
+                const crd = event.target.closest('.card');
+                const el = this.cards.find(card => card.id == crd.dataset.id);
+                el.changeTitleToInput();
+                
+            } else {
+                cardModal.classList.add("visible");
+            }
         });
         this.inputEl.addEventListener("keydown", (e) => {
             if (e.keyCode == 13) {
@@ -55,7 +68,7 @@ class List {
     }
 
     addCard() {
-        const newCard = new Card();
+        const newCard = new Card(this.cards.length);
         this.cards.push(newCard);
         this.addCardButton.insertAdjacentElement(
             "beforeBegin",
@@ -75,11 +88,13 @@ class List {
 }
 
 class Card {
-    constructor() {
+    constructor(id) {
+        this.id = id;
         this.HTMLElement = document.importNode(
             cardTemplate.content.firstElementChild,
             true
         );
+        this.HTMLElement.dataset.id = id;
         this.name = "";
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
@@ -103,7 +118,14 @@ class Card {
         const newEl = document.createElement("h1");
         newEl.textContent = this.inputEl.value;
         newEl.classList.add("cardTitle");
+        this.title = newEl;
         parent.replaceChild(newEl, this.inputEl);
+    }
+
+    changeTitleToInput(){
+        const parent = this.HTMLElement.closest(".card");
+        parent.replaceChild(this.inputEl, this.title);
+        this.focusInput();
     }
 }
 
