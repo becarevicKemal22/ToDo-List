@@ -178,3 +178,11 @@ button:hover{
         visibility: visible;
     }
 }
+
+@media (max-width: 650px){
+    .listContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
