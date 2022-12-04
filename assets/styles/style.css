@@ -172,3 +172,9 @@ button:hover{
 #addCard i{
     padding-inline: 0.3em;
 }
+
+@media (pointer:none), (pointer:coarse) {
+    .card .iconButton {
+        visibility: visible;
+    }
+}
