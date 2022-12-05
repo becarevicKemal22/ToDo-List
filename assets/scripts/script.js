@@ -181,7 +181,7 @@ class Card {
 
     changeTitleToInput() {
         const parent = this.HTMLElement.closest(".card");
-        parent.replaceChild(this.inputEl, this.title);
+        parent.replaceChild(this.inputEl, this.titleEl);
         this.focusInput();
     }
 }
