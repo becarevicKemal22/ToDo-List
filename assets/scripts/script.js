@@ -40,20 +40,31 @@ class List {
             event.stopPropagation();
             this.addCard();
         });
+        this.tabElements = this.HTMLElement.querySelectorAll(".tab");
+        this.tabElements = Array.from(this.tabElements);
+        this.selectedTab = 0;
+
+        this.tabElements[0].parentNode.addEventListener("click", (event) => {
+            if (!event.target.classList.contains("tab")) {
+                return;
+            }
+            this.selectTab(event.target);
+        });
+
         this.cardContainer.addEventListener("click", (event) => {
             if (event.target.tagName.toLowerCase() === "ul") {
                 return;
-            }
-            if (
+            } else if (
                 event.target.tagName.toLowerCase() === "button" ||
                 event.target.tagName.toLowerCase() === "i"
             ) {
-                const crd = event.target.closest('.card');
-                const el = this.cards.find(card => card.id == crd.dataset.id);
+                const crd = event.target.closest(".card");
+                const el = this.cards.find((card) => card.id == crd.dataset.id);
                 el.changeTitleToInput();
-                
+            } else if (event.target.type === "checkbox") {
+                this.renderElementsForCurrentTab();
             } else {
-                cardModal.classList.add("visible");
+                //cardModal.classList.add("visible");
             }
         });
         this.inputEl.addEventListener("keydown", (e) => {
@@ -61,6 +72,50 @@ class List {
                 this.inputEl.blur();
             }
         });
+    }
+
+    selectTab(tab) {
+        this.tabElements[this.selectedTab].classList.remove("selected");
+        const idx = this.tabElements.indexOf(tab);
+        this.selectedTab = idx;
+        this.tabElements[idx].classList.add("selected");
+
+        this.renderElementsForCurrentTab();
+    }
+
+    renderElementsForCurrentTab() {
+        let child = this.cardContainer.lastElementChild.previousElementSibling; 
+        while (child) {
+            this.cardContainer.removeChild(child);
+            child = this.cardContainer.lastElementChild.previousElementSibling;
+        }
+        if (this.selectedTab == 0) {
+            for(const card of this.cards){
+                this.addCardButton.insertAdjacentElement(
+                    "beforeBegin",
+                    card.HTMLElement
+                );
+            }
+        } else if (this.selectedTab == 1) {
+            for(const card of this.cards){
+                if(!card.HTMLElement.querySelector('input').checked){
+                    this.addCardButton.insertAdjacentElement(
+                        "beforeBegin",
+                        card.HTMLElement
+                    );
+                }
+            }
+        } else {
+            for(const card of this.cards){
+                if(card.HTMLElement.querySelector('input').checked){
+                    this.addCardButton.insertAdjacentElement(
+                        "beforeBegin",
+                        card.HTMLElement
+                    );
+                }
+            }
+            
+        }
     }
 
     focusInput() {
@@ -122,7 +177,7 @@ class Card {
         parent.replaceChild(newEl, this.inputEl);
     }
 
-    changeTitleToInput(){
+    changeTitleToInput() {
         const parent = this.HTMLElement.closest(".card");
         parent.replaceChild(this.inputEl, this.title);
         this.focusInput();
