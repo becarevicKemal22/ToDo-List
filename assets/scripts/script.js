@@ -14,7 +14,7 @@ class App {
     listContainer = document.querySelector(".listContainer");
 
     addList() {
-        let newList = new List();
+        let newList = new List(this.lists.length);
         this.lists.push(newList);
         this.listContainer
             .querySelector("#addListButton")
@@ -27,8 +27,9 @@ class App {
 }
 
 class List {
-    constructor() {
+    constructor(id) {
         this.cards = [];
+        this.id = id;
         this.HTMLElement = document.importNode(
             listTemplate.content.firstElementChild,
             true
@@ -123,7 +124,7 @@ class List {
     }
 
     addCard() {
-        const newCard = new Card(this.cards.length);
+        const newCard = new Card(this.cards.length, this.id);
         this.cards.push(newCard);
         this.addCardButton.insertAdjacentElement(
             "beforeBegin",
@@ -143,13 +144,16 @@ class List {
 }
 
 class Card {
-    constructor(id) {
+    constructor(id, parentId) {
         this.id = id;
+        this.parentId = parentId;
         this.HTMLElement = document.importNode(
             cardTemplate.content.firstElementChild,
             true
         );
-        this.HTMLElement.dataset.id = id;
+        
+        this.setIDs();
+
         this.name = "";
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
@@ -162,6 +166,12 @@ class Card {
         this.inputEl.addEventListener("blur", (e) => {
             this.changeInputToTitle();
         });
+    }
+    
+    setIDs(){
+        this.HTMLElement.dataset.id = this.id;
+        this.HTMLElement.querySelector("input").id = `${this.parentId}completed${this.id}`
+        this.HTMLElement.querySelector("label").htmlFor = `${this.parentId}completed${this.id}` 
     }
 
     focusInput() {
