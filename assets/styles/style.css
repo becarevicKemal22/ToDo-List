@@ -37,7 +37,7 @@ header {
 }
 
 button {
-    padding: 0.3em;
+    padding: 0.2em;
     border: transparent solid;
     cursor: pointer;
     transition: transform 200ms;
