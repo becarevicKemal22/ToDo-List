@@ -3,7 +3,7 @@
     --main-color-lightened: #36d9b3;
     --main-dark: #218c74;
     --accent: #ffb142;
-    --white: #f5f4f3;
+    --white: #fbfbfb;
     --gray: #8a9096;
     --light-gray: #dfdede;
     --list-gray: #e8ecef;
@@ -61,6 +61,60 @@ input[type="checkbox"]:checked{
 input[type="checkbox"]:checked ~ label.checkbox{
       display: inline;
       
+}
+
+.modal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background-color: white;
+    border-radius: 0.5em;
+    padding: 0;
+}
+
+.modalContainer{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5em;
+    font-size: 0.9rem;
+}
+
+.modalTop{
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.3em;
+    gap: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal::backdrop{
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.padding05{
+    padding: 0.5em;
+}
+
+.padding03{
+    padding: 0.3em;
+}
+
+.button100{
+    padding: 0.25em;
+    width: 100%;
+    text-align: left;
+}
+
+
+.deleteButton{
+    color: red;
 }
 
 .listContainer{
@@ -141,17 +195,20 @@ input[type="checkbox"]:checked ~ label.checkbox{
 }
 
 .card{
+    padding: 0.4em;
+    background-color: var(--white);
+    border-radius: 0.5em;
+    box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.1 );
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 200ms;
+}
+
+.listCard{
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.3em;
-    padding: 0.4em;
-    background-color: var(--white);
-    border-radius: 0.5em;
-    box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.075);
-    cursor: pointer;
-    font-weight: 500;
-    transition: transform 200ms;
 }
 
 .card:hover{

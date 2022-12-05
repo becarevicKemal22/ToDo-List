@@ -21,10 +21,23 @@
         <div class="cardModal">
             <h1>MODAL IS WORKING</h1>
         </div>
+        <dialog class="modal listModal">
+            <div class="modalContainer">
+                <div class="modalTop">
+                    <h1>List options</h1>
+                    <button class="padding03"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <button class="card button100"><i class="fa-solid fa-pen"></i> Edit Name</button>
+                <button class="card button100 deleteButton"><i class="fa-solid fa-trash"></i> Delete list</button>
+            </div>
+        </dialog>
+
         <div class="listContainer">
             <button id="addListButton"><i class="fa-solid fa-square-plus"></i>Add another list</button>
         </div>
+
     </main>
+
     <template id="listTemplate">
         <div class="list">
             <div class="listHeader">
@@ -42,7 +55,7 @@
         </div>
     </template>
     <template id="cardTemplate">
-        <div class="card">
+        <div class="card listCard">
             <input type="checkbox" name="completed" id="completed">
             <label for="completed" class="checkbox"><i class="fa-solid fa-square-check"></i></label>
             <input type="text" name="cardName" id="cardName" class="nameInput cardNameInput">

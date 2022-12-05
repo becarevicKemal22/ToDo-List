@@ -2,12 +2,30 @@
 const listTemplate = document.getElementById("listTemplate");
 const cardTemplate = document.getElementById("cardTemplate");
 
-const cardModal = document.querySelector(".cardModal");
+let cardModal = document.querySelector(".cardModal");
+let listModal = document.querySelector(".listModal");
+
+function removeEventListeners(element){
+    const parent = element.parentNode;
+    const newEl = element.cloneNode(true);
+    console.log(element);
+    parent.replaceChild(newEl, element);
+    console.log(element);
+    element = newEl;
+    console.log(element);
+}
 
 const addListButton = document.getElementById("addListButton");
 addListButton.addEventListener("click", () => {
     app.addList();
 });
+
+function removeSpecificNode(el, index) {
+    var children = el.children;
+    if(children.length > 0) {
+        el.removeChild(children[index]);
+    }
+}
 
 class App {
     lists = [];
@@ -24,6 +42,12 @@ class App {
             );
         newList.focusInput();
     }
+
+    removeList(list){
+        const idx = this.lists.indexOf(list);
+        removeSpecificNode(this.listContainer, idx);
+        this.lists.splice(idx, 1);
+    }
 }
 
 class List {
@@ -37,13 +61,20 @@ class List {
         this.cardContainer = this.HTMLElement.querySelector(".cardList");
         this.addCardButton = this.cardContainer.querySelector("#addCard");
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
+        this.tabElements = this.HTMLElement.querySelectorAll(".tab");
+        this.tabElements = Array.from(this.tabElements);
+        this.selectedTab = 0;
+        this.optionsButton = this.HTMLElement.querySelector(".iconButton");
+
+        this.optionsButton.addEventListener("click", () => {
+            this.showOptionsModal();
+        }); 
+
         this.addCardButton.addEventListener("click", (event) => {
             event.stopPropagation();
             this.addCard();
         });
-        this.tabElements = this.HTMLElement.querySelectorAll(".tab");
-        this.tabElements = Array.from(this.tabElements);
-        this.selectedTab = 0;
+        
 
         this.tabElements[0].parentNode.addEventListener("click", (event) => {
             if (!event.target.classList.contains("tab")) {
@@ -73,6 +104,39 @@ class List {
                 this.inputEl.blur();
             }
         });
+    }
+
+    showOptionsModal(){
+        const parent = listModal.parentNode;
+        const newEl = listModal.cloneNode(true);
+        parent.replaceChild(newEl, listModal);
+        listModal = newEl;
+
+        listModal.addEventListener('click', event => {
+            console.log(event.target);
+            if (!event.target.closest('.modalContainer')){
+                listModal.close();
+            }
+        });
+
+        listModal.querySelector('button').addEventListener('click', () => {
+            listModal.close();
+        })
+
+        let buttons = listModal.querySelectorAll('button.card');
+        
+        buttons[0].addEventListener('click', () => {
+            listModal.close();   
+            this.focusInput();
+        });
+
+        buttons[1].addEventListener('click', () => {
+            listModal.close();
+            app.removeList(this);
+        });
+
+        listModal.showModal();
+        
     }
 
     selectTab(tab) {
