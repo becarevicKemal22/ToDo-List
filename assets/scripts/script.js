@@ -2,7 +2,6 @@
 const listTemplate = document.getElementById("listTemplate");
 const cardTemplate = document.getElementById("cardTemplate");
 
-let cardModal = document.querySelector(".cardModal");
 let listModal = document.querySelector(".listModal");
 
 function removeEventListeners(element){
@@ -96,7 +95,7 @@ class List {
             } else if (event.target.type === "checkbox") {
                 this.renderElementsForCurrentTab();
             } else {
-                //cardModal.classList.add("visible");
+                cardModal.show(event.target);
             }
         });
         this.inputEl.addEventListener("keydown", (e) => {
@@ -257,5 +256,21 @@ class Card {
         this.focusInput();
     }
 }
+
+
+class CardModal{
+    constructor(){
+        this.callerCard = null;
+        this.HTMLElement = document.querySelector('.cardModal');
+    }
+
+    show(callerCard){
+        
+        this.HTMLElement.showModal();
+    }
+}
+
+
+const cardModal = new CardModal();
 
 const app = new App();

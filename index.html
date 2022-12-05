@@ -18,9 +18,6 @@
         <h1>My ToDo list</h1>
     </header>
     <main>
-        <div class="cardModal">
-            <h1>MODAL IS WORKING</h1>
-        </div>
         <dialog class="modal listModal">
             <div class="modalContainer">
                 <div class="modalTop">
@@ -32,6 +29,20 @@
             </div>
         </dialog>
 
+        <dialog class="modal cardModal">
+            <div class="modalContainer">
+                <div class="modalTop">
+                    <div class="titleWithIcon">
+                        <h1>
+                            <i class="fa-solid fa-clapperboard"></i>
+                            TITLE
+                        </h1>
+                    </div>
+                    <button class="padding03"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+        </dialog>
+        
         <div class="listContainer">
             <button id="addListButton"><i class="fa-solid fa-square-plus"></i>Add another list</button>
         </div>
