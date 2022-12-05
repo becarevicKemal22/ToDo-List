@@ -1,46 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="assets/scripts/script.js" defer></script>
-    <script src="https://kit.fontawesome.com/8a54e0956e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/styles/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 500, 700" rel="stylesheet">
+        <script src="assets/scripts/script.js" defer></script>
+        <script
+            src="https://kit.fontawesome.com/8a54e0956e.js"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="assets/styles/style.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:300, 500, 700"
+            rel="stylesheet"
+        />
 
-    <title>ToDo list</title>
-</head>
-<body>
-    
-    <header>
-        <h1>My ToDo list</h1>
-    </header>
-    <main>
-        <div class="cardModal">
-            <h1>MODAL IS WORKING</h1>
-        </div>
-        <div class="listContainer">
-            <button id="addListButton"><i class="fa-solid fa-square-plus"></i>Add another list</button>
-        </div>
-    </main>
-    <template id="listTemplate">
-        <div class="list">
-            <div class="listHeader">
-                <input type="text" name="listName" id="listName" class="nameInput">
-                <button class="iconButton"><i class="fa-solid fa-ellipsis"></i></button>
+        <title>ToDo list</title>
+    </head>
+    <body>
+        <header>
+            <h1>My ToDo list</h1>
+        </header>
+        <main>
+            <dialog class="modal cardModal">
+                <h1>MODAL IS WORKING</h1>
+            </dialog>
+            <dialog class="modal optionsModal">
+                <div class="modalTop">
+                    <h1>List Options</h1>
+                    <button><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <button class="editName button100">
+                    <i class="fa-solid fa-pen"></i> Edit name
+                </button>
+                <button class="deleteButton button100">
+                    <i class="fa-regular fa-trash-can"></i> Delete
+                </button>
+            </dialog>
+            <div class="listContainer">
+                <button id="addListButton">
+                    <i class="fa-solid fa-square-plus"></i>Add another list
+                </button>
             </div>
-            <ul class="cardList">
-                <button id="addCard"><i class="fa-solid fa-clapperboard"></i>Add a card</button>
-            </ul>
-        </div>
-    </template>
-    <template id="cardTemplate">
-        <div class="card">
-            <input type="text" name="cardName" id="cardName" class="nameInput cardNameInput">
-            <button class="iconButton"><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-    </template>
-</body>
+        </main>
+
+        <template id="listTemplate">
+            <div class="list">
+                <div class="listHeader">
+                    <input
+                        type="text"
+                        name="listName"
+                        id="listName"
+                        class="nameInput"
+                    />
+                    <button class="iconButton">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                </div>
+                <ul class="cardList">
+                    <button id="addCard">
+                        <i class="fa-solid fa-clapperboard"></i>Add a card
+                    </button>
+                </ul>
+            </div>
+        </template>
+        <template id="cardTemplate">
+            <div class="card">
+                <input
+                    type="text"
+                    name="cardName"
+                    id="cardName"
+                    class="nameInput cardNameInput"
+                />
+                <button class="iconButton">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </div>
+        </template>
+    </body>
 </html>
