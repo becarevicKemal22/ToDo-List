@@ -31,6 +31,11 @@
                 <input type="text" name="listName" id="listName" class="nameInput">
                 <button class="iconButton"><i class="fa-solid fa-ellipsis"></i></button>
             </div>
+            <div class="tabs">
+                <div class="tab selected">All</div>
+                <div class="tab">Pending</div>
+                <div class="tab">Completed</div>
+            </div>
             <ul class="cardList">
                 <button id="addCard"><i class="fa-solid fa-clapperboard"></i>Add a card</button>
             </ul>
@@ -38,6 +43,8 @@
     </template>
     <template id="cardTemplate">
         <div class="card">
+            <input type="checkbox" name="completed" id="completed">
+            <label for="completed" class="checkbox"><i class="fa-solid fa-square-check"></i></label>
             <input type="text" name="cardName" id="cardName" class="nameInput cardNameInput">
             <button class="iconButton"><i class="fa-solid fa-pen-to-square"></i></button>
         </div>
