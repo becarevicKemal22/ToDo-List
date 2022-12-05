@@ -1,4 +1,4 @@
-:root{
+:root {
     --main-color: #25c8a2;
     --main-color-lightened: #36d9b3;
     --main-dark: #218c74;
@@ -9,7 +9,9 @@
     --list-gray: #e8ecef;
 }
 
-*, *::before, *::after{
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,15 +19,15 @@
     background-color: inherit;
 }
 
-body{
+body {
     height: 100vh;
     overflow-y: scroll;
-    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
     background-color: var(--main-dark);
 }
 
-header{
+header {
     background-color: var(--main-color);
     color: white;
     font-size: 1.75rem;
@@ -34,16 +36,18 @@ header{
     font-weight: 700;
 }
 
-button{
+button {
+    padding: 0.2em;
     border: transparent solid;
     cursor: pointer;
     transition: transform 200ms;
     border-radius: 0.4em;
 }
 
-button:hover{
+button:hover {
     background-color: var(--light-gray);
 }
+
 
 label.checkbox{
     display: none;
@@ -63,7 +67,7 @@ input[type="checkbox"]:checked ~ label.checkbox{
       
 }
 
-.listContainer{
+.listContainer {
     margin: 2em;
     display: flex;
     gap: 2em;
@@ -71,7 +75,7 @@ input[type="checkbox"]:checked ~ label.checkbox{
     flex-wrap: wrap;
 }
 
-.list{
+.list {
     padding: 1em;
     border-radius: 0.4em;
     background-color: var(--list-gray);
@@ -80,7 +84,7 @@ input[type="checkbox"]:checked ~ label.checkbox{
     justify-content: center;
     gap: 0.75em;
     max-width: 25ch;
-    
+    position: relative;
 }
 
 .tabs{
@@ -110,12 +114,57 @@ input[type="checkbox"]:checked ~ label.checkbox{
     gap: 0.5em;
 }
 
-.listHeader{
+.listHeader {
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 
-.nameInput, .cardTitle{
+.modal {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--white);
+    padding: 1em;
+    border-radius: 0.5em;
+    border: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: flex-start;
+    font-size: 0.9rem;
+}
+
+.modal:not([open]){
+    display: none;
+}
+
+.modal::backdrop{
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.modal .modalTop {
+    width: 100%;
+    display: flex;
+    gap: 2.5em;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.deleteButton {
+    padding: 0.25em;
+    color: red;
+    text-align: left;
+}
+
+.nameInput,
+.cardTitle {
     border: 2px solid transparent;
     font-weight: 700;
     padding: 0.3em;
@@ -123,24 +172,24 @@ input[type="checkbox"]:checked ~ label.checkbox{
     width: 80%;
 }
 
-.cardTitle{
+.cardTitle {
     font-weight: 500;
     font-size: 0.9rem;
 }
 
-.cardNameInput{
+.cardNameInput {
     font-size: 0.9rem;
     padding: 0.2em;
     font-weight: 500;
 }
 
-.nameInput:focus{
+.nameInput:focus {
     outline: none;
     border: 2px solid var(--main-color);
     border-radius: 0.2em;
 }
 
-.card{
+.card {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -154,24 +203,24 @@ input[type="checkbox"]:checked ~ label.checkbox{
     transition: transform 200ms;
 }
 
-.card:hover{
+.card:hover {
     transform: translateY(-5%);
 }
 
-.card .iconButton{
+.card .iconButton {
     visibility: hidden;
 }
 
-.card:hover .iconButton{
+.card:hover .iconButton {
     visibility: visible;
 }
 
-.iconButton{
+.iconButton {
     padding-inline: 0.4em;
     color: var(--gray);
 }
 
-.cardModal{
+.cardModal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -179,11 +228,11 @@ input[type="checkbox"]:checked ~ label.checkbox{
     display: none;
 }
 
-.cardModal.visible{
+.cardModal.visible {
     display: block;
 }
 
-#addListButton{
+#addListButton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,17 +241,17 @@ input[type="checkbox"]:checked ~ label.checkbox{
     font-size: 1.3rem;
 }
 
-#addListButton i{
+#addListButton i {
     font-size: 2rem;
 }
 
-#addListButton:hover{
+#addListButton:hover {
     transform: translateX(2.5%);
     background-color: transparent;
     color: var(--white);
 }
 
-#addCard{
+#addCard {
     text-align: left;
     padding: 0.5em;
     color: var(--gray);
@@ -210,18 +259,18 @@ input[type="checkbox"]:checked ~ label.checkbox{
     border-radius: 0.4em;
 }
 
-#addCard i{
+#addCard i {
     padding-inline: 0.3em;
 }
 
-@media (pointer:none), (pointer:coarse) {
+@media (pointer: none), (pointer: coarse) {
     .card .iconButton {
         visibility: visible;
     }
 }
 
-@media (max-width: 650px){
-    .listContainer{
+@media (max-width: 650px) {
+    .listContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
