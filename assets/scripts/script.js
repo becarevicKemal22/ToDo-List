@@ -186,12 +186,17 @@ class List {
     }
 
     removeCard(card) {
-        for (cd of this.cards) {
-            if (card === cd) {
-                console.log("found card: " + card);
-            }
+        const idx = this.cards.indexOf(card);
+        removeSpecificNode(this.cardContainer, idx);
+        this.cards.splice(idx, 1);
+        this.adjustCardIDs();
+    }
+
+    adjustCardIDs(){
+        let counter = 0;
+        for(const card of this.cards){
+            card.HTMLElement.dataset.id = counter++;
         }
-        this.cards.splice(index, 1);
     }
 }
 
@@ -277,10 +282,16 @@ class CardModal{
             this.HTMLElement.close();
         });
 
+        this.HTMLElement.querySelector('.dangerButton').addEventListener('click', () => {
+            this.HTMLElement.close();
+            this.deleteCard();
+        });
+
     }
 
     show(callerCard){
         this.callerCard = callerCard;
+        console.log(callerCard);
         let element = callerCard.HTMLElement;
         this.setTitle(element.querySelector('.cardTitle').textContent);
         this.setDesc(callerCard.description);
@@ -298,8 +309,11 @@ class CardModal{
     save(){
         this.callerCard.description = this.HTMLElement.querySelector('textarea').value;
     }
-}
 
+    deleteCard(){
+        app.lists[this.callerCard.parentId].removeCard(this.callerCard);
+    }
+}
 
 const cardModal = new CardModal();
 
