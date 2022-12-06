@@ -195,6 +195,7 @@ class List {
                 card.HTMLElement
             );
             this.adjustCardIDs();
+        this.renderElementsForCurrentTab();
     }
 
     removeCard(card) {
@@ -257,6 +258,7 @@ class Card {
         newEl.classList.add("cardTitle");
         this.title = newEl;
         parent.replaceChild(newEl, this.inputEl);
+        app.lists[this.parentId].renderElementsForCurrentTab(); //* Has to be here so that if the user makes a card in the completed tab it doesnt keep it there.
     }
 
     changeTitleToInput() {
