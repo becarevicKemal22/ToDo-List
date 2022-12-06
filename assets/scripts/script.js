@@ -187,8 +187,8 @@ class List {
 
     removeCard(card) {
         const idx = this.cards.indexOf(card);
-        removeSpecificNode(this.cardContainer, idx);
         this.cards.splice(idx, 1);
+        this.cardContainer.removeChild(card.HTMLElement);
         this.adjustCardIDs();
     }
 
