@@ -1,77 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="assets/scripts/script.js" defer></script>
-    <script src="https://kit.fontawesome.com/8a54e0956e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/styles/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 500, 700" rel="stylesheet">
+        <script src="assets/scripts/script.js" defer></script>
+        <script
+            src="https://kit.fontawesome.com/8a54e0956e.js"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="assets/styles/style.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:300, 500, 700"
+            rel="stylesheet"
+        />
 
-    <title>ToDo list</title>
-</head>
-<body>
-    
-    <header>
-        <h1>My ToDo list</h1>
-    </header>
-    <main>
-        <dialog class="modal listModal">
-            <div class="modalContainer">
-                <div class="modalTop">
-                    <h1>List options</h1>
-                    <button class="padding03"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <button class="card button100"><i class="fa-solid fa-pen"></i> Edit Name</button>
-                <button class="card button100 deleteButton"><i class="fa-solid fa-trash"></i> Delete list</button>
-            </div>
-        </dialog>
-
-        <dialog class="modal cardModal">
-            <div class="modalContainer">
-                <div class="modalTop">
-                    <div class="titleWithIcon">
-                        <h1>
-                            <i class="fa-solid fa-clapperboard"></i>
-                            TITLE
-                        </h1>
+        <title>ToDo list</title>
+    </head>
+    <body>
+        <header>
+            <h1>My ToDo list</h1>
+        </header>
+        <main>
+            <dialog class="modal listModal">
+                <div class="modalContainer">
+                    <div class="modalTop">
+                        <h1>List options</h1>
+                        <button class="padding03">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
-                    <button class="padding03"><i class="fa-solid fa-xmark"></i></button>
+                    <button class="card button100">
+                        <i class="fa-solid fa-pen"></i> Edit Name
+                    </button>
+                    <button class="card button100 dangerButton">
+                        <i class="fa-solid fa-trash"></i> Delete list
+                    </button>
                 </div>
-            </div>
-        </dialog>
-        
-        <div class="listContainer">
-            <button id="addListButton"><i class="fa-solid fa-square-plus"></i>Add another list</button>
-        </div>
+            </dialog>
 
-    </main>
+            <dialog class="modal cardModal">
+                <div class="modalContainer">
+                    <div class="modalTop">
+                        <div class="titleWithIcon flexRow">
+                            <i class="fa-solid fa-clapperboard"></i>
+                            <h1>Card Title</h1>
+                        </div>
+                        <button id="exit" class="padding03">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="cardModalContent">
+                        <div>
+                            <h1>
+                                <i class="fa-solid fa-bars-staggered"></i>
+                                Description
+                            </h1>
+                            <textarea
+                                name="cardDescription"
+                                id="cardDescription"
+                                rows="6"
+                                class="modalInputField"
+                            ></textarea>
+                        </div>
+                        <div class="flexColumn">
+                            <h1 class="alignSelfLeft">Actions</h1>
+                            <button class="card button100" id="moveCard">
+                                <i class="fa-solid fa-chevron-right"></i> Move
+                            </button>
+                            <button class="card button100" id="colorLabel">
+                                <i class="fa-solid fa-tags"></i> Color Label
+                            </button>
+                            <button class="card button100 dangerButton">
+                                <i class="fa-solid fa-trash"></i> Delete card
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cardModalFooter">
+                        <button id="cancel" class="buttonCancel">Cancel</button>
+                        <button class="buttonConfirm">Save</button>
+                    </div>
+                </div>
+            </dialog>
 
-    <template id="listTemplate">
-        <div class="list">
-            <div class="listHeader">
-                <input type="text" name="listName" id="listName" class="nameInput">
-                <button class="iconButton"><i class="fa-solid fa-ellipsis"></i></button>
+            <dialog
+                id="listSelectModal"
+                class="modal moveDropdown MultipleChoiceModal"
+            >
+                <h1>Move card</h1>
+                <p>Select which list to move to.</p>
+                <ul id="availableLists"></ul>
+                <button id="cancel" class="buttonCancel">Cancel</button>
+            </dialog>
+
+            <dialog id="colorLabelModal" class="modal MultipleChoiceModal">
+                <div class="modalContainer">
+                    <h1>Color labels</h1>
+                    <p>
+                        Select a color label from the list to add to your card.
+                    </p>
+                    <ul>
+                        <div class="card labelChoice red">
+                            <p>Red</p>
+                        </div>
+                        <div class="card labelChoice orange">
+                            <p>Orange</p>
+                        </div>
+                        <div class="card labelChoice yellow">
+                            <p>Yellow</p>
+                        </div>
+                        <div class="card labelChoice blue">
+                            <p>Blue</p>
+                        </div>
+                        <div class="card labelChoice purple">
+                            <p>Purple</p>
+                        </div>
+                        <div class="card labelChoice green">
+                            <p>Green</p>
+                        </div>
+                        <div class="card labelChoice transparent">
+                            <p>Remove label</p>
+                        </div>
+                    </ul>
+                    <div class="cardModalFooter">
+                        <button id="cancel" class="buttonCancel">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <div class="listContainer">
+                <button id="addListButton">
+                    <i class="fa-solid fa-square-plus"></i>Add another list
+                </button>
             </div>
-            <div class="tabs">
-                <div class="tab selected">All</div>
-                <div class="tab">Pending</div>
-                <div class="tab">Completed</div>
+        </main>
+
+        <template id="listTemplate">
+            <div class="list">
+                <div class="listHeader">
+                    <input
+                        type="text"
+                        name="listName"
+                        id="listName"
+                        class="nameInput"
+                    />
+                    <button class="iconButton">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                </div>
+                <div class="tabs">
+                    <div class="tab selected">All</div>
+                    <div class="tab">Pending</div>
+                    <div class="tab">Completed</div>
+                </div>
+                <ul class="cardList">
+                    <button id="addCard">
+                        <i class="fa-solid fa-clapperboard"></i>Add a card
+                    </button>
+                </ul>
             </div>
-            <ul class="cardList">
-                <button id="addCard"><i class="fa-solid fa-clapperboard"></i>Add a card</button>
-            </ul>
-        </div>
-    </template>
-    <template id="cardTemplate">
-        <div class="card listCard">
-            <input type="checkbox" name="completed" id="completed">
-            <label for="completed" class="checkbox"><i class="fa-solid fa-square-check"></i></label>
-            <input type="text" name="cardName" id="cardName" class="nameInput cardNameInput">
-            <button class="iconButton"><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
-    </template>
-</body>
+        </template>
+        <template id="cardTemplate">
+            <div class="card listCard colorLabel">
+                <input type="checkbox" name="completed" id="completed" />
+                <label for="completed" class="checkbox"
+                    ><i class="fa-solid fa-square-check"></i
+                ></label>
+                <input
+                    type="text"
+                    name="cardName"
+                    id="cardName"
+                    class="nameInput cardNameInput"
+                />
+                <button class="iconButton">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </div>
+        </template>
+    </body>
 </html>
