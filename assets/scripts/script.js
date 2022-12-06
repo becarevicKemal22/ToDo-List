@@ -85,6 +85,9 @@ class List {
             } else if (event.target.type === "checkbox") {
                 this.renderElementsForCurrentTab();
             } else {
+                if(event.target.tagName === 'INPUT'){
+                    return;
+                }
                 cardModal.show(this.cards[event.target.closest('.card').dataset.id]);
             }
         });
@@ -185,6 +188,15 @@ class List {
         newCard.focusInput();
     }
 
+    addExistingCard(card){
+        this.cards.push(card);
+            this.addCardButton.insertAdjacentElement(
+                "beforeBegin",
+                card.HTMLElement
+            );
+            this.adjustCardIDs();
+    }
+
     removeCard(card) {
         const idx = this.cards.indexOf(card);
         this.cards.splice(idx, 1);
@@ -195,7 +207,10 @@ class List {
     adjustCardIDs(){
         let counter = 0;
         for(const card of this.cards){
-            card.HTMLElement.dataset.id = counter++;
+            card.id = counter;
+            card.HTMLElement.dataset.id = counter;
+            card.parentId = this.id;
+            counter++;
         }
     }
 }
@@ -251,51 +266,82 @@ class Card {
     }
 }
 
-
-class CardModal{
-    constructor(){
-        this.HTMLElement = document.querySelector('.cardModal');
+class Modal{
+    constructor(HTMLEl){
+        this.HTMLElement = HTMLEl;
         this.callerCard = null;
+        
+        //* Closes the element if the backdrop is clicked
+        this.HTMLElement.addEventListener('click', event => {
+            if (!event.target.closest('.modalContainer')){
+                this.close();
+            }
+        });
+
+        if(this.HTMLElement.querySelector("#exit")){
+            this.HTMLElement.querySelector('#exit').addEventListener('click', () => {
+                this.close();
+            })
+        }
+        
+        if(this.HTMLElement.querySelector('.buttonCancel')){
+            this.HTMLElement.querySelector('.buttonCancel').addEventListener('click', () => {
+                this.close();
+            });
+        }
+    }
+
+    show(callerCard){
+        this.callerCard = callerCard;
+        if(this.onOpen){
+            this.onOpen();
+        }
+        this.HTMLElement.showModal();
+    }
+
+    close(){
+        if(this.onClose){
+            this.onClose();
+        }
+        this.HTMLElement.close();
+    }
+}
+
+class CardModal extends Modal{
+    constructor(HTMLEl){
+        super(HTMLEl);
 
         this.HTMLElement.querySelector('textarea').addEventListener("keydown", (e) => {
             if (e.keyCode == 13) {
                 this.HTMLElement.querySelector('textarea').blur();
             }
         });
-        
-        this.HTMLElement.querySelector('#exit').addEventListener('click', () => {
-            this.HTMLElement.close();
-        })
 
-        this.HTMLElement.addEventListener('click', event => {
-            if (!event.target.closest('.modalContainer')){
-                this.HTMLElement.close();
-            }
+        this.HTMLElement.querySelector('.dangerButton').addEventListener('click', () => {
+            this.close();
+            this.deleteCard();
         });
+        
+        this.HTMLElement.querySelector('#moveCard').addEventListener('click', () =>{
+            this.close();
 
-        this.HTMLElement.querySelector('.buttonCancel').addEventListener('click', () => {
-            this.HTMLElement.close();
+            listSelectModal.show(this.callerCard);
         });
         
         this.HTMLElement.querySelector('.buttonConfirm').addEventListener('click', () => {
             this.save();
-            this.HTMLElement.close();
+            this.close();
         });
-
-        this.HTMLElement.querySelector('.dangerButton').addEventListener('click', () => {
-            this.HTMLElement.close();
-            this.deleteCard();
-        });
-
     }
 
-    show(callerCard){
-        this.callerCard = callerCard;
-        console.log(callerCard);
-        let element = callerCard.HTMLElement;
-        this.setTitle(element.querySelector('.cardTitle').textContent);
-        this.setDesc(callerCard.description);
-        this.HTMLElement.showModal();
+    updateElement(){
+        let callerCardElement = this.callerCard.HTMLElement;
+        this.setTitle(callerCardElement.querySelector('.cardTitle').textContent);
+        this.setDesc(this.callerCard.description);
+    }
+
+    onOpen(){
+        this.updateElement();
     }
 
     setTitle(title){
@@ -315,6 +361,67 @@ class CardModal{
     }
 }
 
-const cardModal = new CardModal();
+class ListSelectModal extends Modal{
+    constructor(HTMLEl){
+        super(HTMLEl);
+        this.listCardContainer = this.HTMLElement.querySelector("#availableLists");
+    }
+
+    onOpen(){
+        let avalLists = this.getAvailableLists();
+        this.addListCards(avalLists);
+    }
+
+    onClose(){
+        this.removeCards();
+    }
+
+    getAvailableLists(){
+        let lists = [];
+        for(const list of app.lists){
+            if(list.id != this.callerCard.parentId){
+                lists.push(list);
+            }
+        }
+        return lists;
+    }
+
+    addListCards(avalLists){
+        avalLists.forEach((lst, idx, avalLists) => {
+            this.createCard(lst);
+        })
+    }
+
+    createCard(list){
+        let card = document.createElement('li');
+        card.classList.add("card");
+        card.classList.add("padding05");
+        card.innerHTML = `
+            <p>${this.getListName(list)}</p>
+        `
+        card.addEventListener('click', () => {
+            const currentList = app.lists[this.callerCard.parentId];
+            const selectedList = app.lists[list.id];
+            currentList.removeCard(this.callerCard);
+            selectedList.addExistingCard(this.callerCard);
+        })
+        this.listCardContainer.appendChild(card);
+    }
+    
+    getListName(list){
+        return list.HTMLElement.querySelector('#listName').value;
+    }
+
+    removeCards(){
+        let child = this.listCardContainer.lastElementChild; 
+        while (child) {
+            this.listCardContainer.removeChild(child);
+            child = this.listCardContainer.lastElementChild;
+        }
+    }
+}
+
+const cardModal = new CardModal(document.querySelector('.cardModal'));
+const listSelectModal = new ListSelectModal(document.querySelector('#listSelectModal'));
 
 const app = new App();

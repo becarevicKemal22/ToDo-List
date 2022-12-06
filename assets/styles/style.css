@@ -67,6 +67,10 @@ input[type="checkbox"]:checked ~ label.checkbox{
       
 }
 
+ul{
+    list-style-type: none;
+}
+
 .flexColumn{
     display: flex;
     flex-direction: column;
@@ -109,6 +113,7 @@ input[type="checkbox"]:checked ~ label.checkbox{
     align-items: flex-start;
     gap: 0.5em;
     font-size: 0.9rem;
+    position: relative;
 }
 
 .modalTop{
@@ -124,6 +129,19 @@ input[type="checkbox"]:checked ~ label.checkbox{
 
 .modal::backdrop{
     background: rgba(0, 0, 0, 0.3);
+}
+
+dialog:not([open]){
+    display: none;
+}
+
+.moveDropdown{
+    display: block;
+    position: absolute;
+    border: 1px solid var(--gray);
+    background-color: white;
+    padding: 1em;
+    z-index: 100;
 }
 
 .cardModalContent{
@@ -153,6 +171,30 @@ input[type="checkbox"]:checked ~ label.checkbox{
     width: 100%;
     justify-content: flex-end;
     gap: 1em;
+}
+
+.listSelectModal{
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.listSelectModal h1{
+    font-size: 1.3rem;
+    margin-bottom: 0.25em;
+}
+
+.listSelectModal > *{
+    margin-bottom: 0.7em;
+}
+
+.listSelectModal ul{
+    display: flex;
+    flex-direction: column;
+    gap: 0.65em;
+}
+
+.listSelectModal .buttonCancel{
+    font-size: 0.85rem;
 }
 
 .padding05{
