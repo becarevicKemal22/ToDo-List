@@ -173,27 +173,28 @@ dialog:not([open]){
     gap: 1em;
 }
 
-.listSelectModal{
+.MultipleChoiceModal{
     font-size: 1.1rem;
     font-weight: 500;
+    max-width: 30ch;
 }
 
-.listSelectModal h1{
+.MultipleChoiceModal h1{
     font-size: 1.3rem;
-    margin-bottom: 0.25em;
 }
 
-.listSelectModal > *{
+.MultipleChoiceModal > *{
     margin-bottom: 0.7em;
 }
 
-.listSelectModal ul{
+.MultipleChoiceModal ul{
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 0.65em;
 }
 
-.listSelectModal .buttonCancel{
+.MultipleChoiceModal .buttonCancel{
     font-size: 0.85rem;
 }
 
@@ -316,6 +317,7 @@ dialog:not([open]){
 }
 
 .card{
+    border-left: 4px solid transparent;
     padding: 0.4em;
     background-color: var(--white);
     border-radius: 0.5em;
@@ -323,6 +325,7 @@ dialog:not([open]){
     cursor: pointer;
     font-weight: 500;
     transition: transform 200ms;
+    width: 100%;
 }
 
 .listCard{
@@ -347,6 +350,40 @@ dialog:not([open]){
 .iconButton{
     padding-inline: 0.4em;
     color: var(--gray);
+}
+
+.labelChoice{
+    color: white;
+    font-weight: 700;
+}
+
+.red{
+    background-color: #e74c3c;
+}
+
+.orange{
+    background-color: #f39c12;
+}
+
+.yellow{
+    background-color: #f1c40f;
+}
+
+.green{
+    background-color: #2ecc71;
+}
+
+.blue{
+    background-color: #3498db;
+}
+
+.purple{
+    background-color: #9b59b6;
+}
+
+.transparent{
+    background-color: transparent;
+    color: black;
 }
 
 #addListButton{

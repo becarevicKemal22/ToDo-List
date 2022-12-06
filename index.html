@@ -39,7 +39,7 @@
                     </button>
                 </div>
             </dialog>
-            
+
             <dialog class="modal cardModal">
                 <div class="modalContainer">
                     <div class="modalTop">
@@ -84,14 +84,51 @@
                 </div>
             </dialog>
 
-            <dialog id="listSelectModal" class="modal moveDropdown listSelectModal">
+            <dialog
+                id="listSelectModal"
+                class="modal moveDropdown MultipleChoiceModal"
+            >
                 <h1>Move card</h1>
                 <p>Select which list to move to.</p>
-                <ul id="availableLists">
-
-                </ul>
+                <ul id="availableLists"></ul>
                 <button id="cancel" class="buttonCancel">Cancel</button>
             </dialog>
+
+            <dialog id="colorLabelModal" class="modal MultipleChoiceModal">
+                <div class="modalContainer">
+                    <h1>Color labels</h1>
+                    <p>
+                        Select a color label from the list to add to your card.
+                    </p>
+                    <ul>
+                        <div class="card labelChoice red">
+                            <p>Red</p>
+                        </div>
+                        <div class="card labelChoice orange">
+                            <p>Orange</p>
+                        </div>
+                        <div class="card labelChoice yellow">
+                            <p>Yellow</p>
+                        </div>
+                        <div class="card labelChoice blue">
+                            <p>Blue</p>
+                        </div>
+                        <div class="card labelChoice purple">
+                            <p>Purple</p>
+                        </div>
+                        <div class="card labelChoice green">
+                            <p>Green</p>
+                        </div>
+                        <div class="card labelChoice transparent">
+                            <p>Remove label</p>
+                        </div>
+                    </ul>
+                    <div class="cardModalFooter">
+                        <button id="cancel" class="buttonCancel">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
             <div class="listContainer">
                 <button id="addListButton">
                     <i class="fa-solid fa-square-plus"></i>Add another list
@@ -125,7 +162,7 @@
             </div>
         </template>
         <template id="cardTemplate">
-            <div class="card listCard">
+            <div class="card listCard colorLabel">
                 <input type="checkbox" name="completed" id="completed" />
                 <label for="completed" class="checkbox"
                     ><i class="fa-solid fa-square-check"></i

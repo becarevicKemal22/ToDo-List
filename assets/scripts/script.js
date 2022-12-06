@@ -311,6 +311,8 @@ class CardModal extends Modal{
     constructor(HTMLEl){
         super(HTMLEl);
 
+        this.colorToApply = null;
+
         this.HTMLElement.querySelector('textarea').addEventListener("keydown", (e) => {
             if (e.keyCode == 13) {
                 this.HTMLElement.querySelector('textarea').blur();
@@ -327,7 +329,10 @@ class CardModal extends Modal{
 
             listSelectModal.show(this.callerCard);
         });
-        
+
+        this.HTMLElement.querySelector('#colorLabel').addEventListener('click', () => {
+            colorLabelModal.show(this.callerCard);
+        });
         this.HTMLElement.querySelector('.buttonConfirm').addEventListener('click', () => {
             this.save();
             this.close();
@@ -344,6 +349,10 @@ class CardModal extends Modal{
         this.updateElement();
     }
 
+    onClose(){
+        this.colorToApply = null;
+    }
+
     setTitle(title){
         this.HTMLElement.querySelector(".titleWithIcon h1").textContent = title;
     }
@@ -352,8 +361,15 @@ class CardModal extends Modal{
         this.HTMLElement.querySelector('textarea').value = desc;
     }
 
+    applyColorLabel(){
+        this.callerCard.HTMLElement.style.borderLeftColor = this.colorToApply;
+    }
+
     save(){
         this.callerCard.description = this.HTMLElement.querySelector('textarea').value;
+        if(this.colorToApply){
+            this.applyColorLabel();
+        }
     }
 
     deleteCard(){
@@ -421,7 +437,24 @@ class ListSelectModal extends Modal{
     }
 }
 
+class ColorLabelModal extends Modal{
+    constructor(HTMLEl){
+        super(HTMLEl);
+
+        this.HTMLElement.querySelector("ul").addEventListener("click", event => {
+            this.selectedColor = getComputedStyle(event.target.closest('.labelChoice')).backgroundColor;
+            this.sendColorToModal();
+            this.close();
+        });
+    }
+
+    sendColorToModal(){
+        cardModal.colorToApply = this.selectedColor;
+    }
+}
+
 const cardModal = new CardModal(document.querySelector('.cardModal'));
 const listSelectModal = new ListSelectModal(document.querySelector('#listSelectModal'));
+const colorLabelModal = new ColorLabelModal(document.querySelector('#colorLabelModal'));
 
 const app = new App();
