@@ -4,16 +4,6 @@ const cardTemplate = document.getElementById("cardTemplate");
 
 let listModal = document.querySelector(".listModal");
 
-function removeEventListeners(element){
-    const parent = element.parentNode;
-    const newEl = element.cloneNode(true);
-    console.log(element);
-    parent.replaceChild(newEl, element);
-    console.log(element);
-    element = newEl;
-    console.log(element);
-}
-
 const addListButton = document.getElementById("addListButton");
 addListButton.addEventListener("click", () => {
     app.addList();
@@ -95,7 +85,7 @@ class List {
             } else if (event.target.type === "checkbox") {
                 this.renderElementsForCurrentTab();
             } else {
-                cardModal.show(event.target);
+                cardModal.show(this.cards[event.target.closest('.card').dataset.id]);
             }
         });
         this.inputEl.addEventListener("keydown", (e) => {
@@ -112,7 +102,6 @@ class List {
         listModal = newEl;
 
         listModal.addEventListener('click', event => {
-            console.log(event.target);
             if (!event.target.closest('.modalContainer')){
                 listModal.close();
             }
@@ -217,7 +206,7 @@ class Card {
         
         this.setIDs();
 
-        this.name = "";
+        this.description = "";
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
         this.inputEl.addEventListener("keydown", (e) => {
@@ -260,13 +249,54 @@ class Card {
 
 class CardModal{
     constructor(){
-        this.callerCard = null;
         this.HTMLElement = document.querySelector('.cardModal');
+        this.callerCard = null;
+
+        this.HTMLElement.querySelector('textarea').addEventListener("keydown", (e) => {
+            if (e.keyCode == 13) {
+                this.HTMLElement.querySelector('textarea').blur();
+            }
+        });
+        
+        this.HTMLElement.querySelector('#exit').addEventListener('click', () => {
+            this.HTMLElement.close();
+        })
+
+        this.HTMLElement.addEventListener('click', event => {
+            if (!event.target.closest('.modalContainer')){
+                this.HTMLElement.close();
+            }
+        });
+
+        this.HTMLElement.querySelector('.buttonCancel').addEventListener('click', () => {
+            this.HTMLElement.close();
+        });
+        
+        this.HTMLElement.querySelector('.buttonConfirm').addEventListener('click', () => {
+            this.save();
+            this.HTMLElement.close();
+        });
+
     }
 
     show(callerCard){
-        
+        this.callerCard = callerCard;
+        let element = callerCard.HTMLElement;
+        this.setTitle(element.querySelector('.cardTitle').textContent);
+        this.setDesc(callerCard.description);
         this.HTMLElement.showModal();
+    }
+
+    setTitle(title){
+        this.HTMLElement.querySelector(".titleWithIcon h1").textContent = title;
+    }
+
+    setDesc(desc){
+        this.HTMLElement.querySelector('textarea').value = desc;
+    }
+
+    save(){
+        this.callerCard.description = this.HTMLElement.querySelector('textarea').value;
     }
 }
 
