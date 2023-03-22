@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <script src="assets/scripts/script.js" defer></script>
+        <script src="assets/scripts/script.js" type="module" defer></script>
         <script
             src="https://kit.fontawesome.com/8a54e0956e.js"
             crossorigin="anonymous"
@@ -162,7 +162,7 @@
             </div>
         </template>
         <template id="cardTemplate">
-            <div class="card listCard colorLabel">
+            <div class="card listCard colorLabel" draggable="true">
                 <input type="checkbox" name="completed" id="completed" />
                 <label for="completed" class="checkbox"
                     ><i class="fa-solid fa-square-check"></i

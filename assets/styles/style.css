@@ -386,6 +386,19 @@ dialog:not([open]){
     color: black;
 }
 
+.beingDragged{
+    opacity: 70%;
+    background-color: var(--light-gray);
+}
+
+.hidden{
+    display: none;
+}
+
+.droppableArea{
+    background-color: var(--light-gray);
+}
+
 #addListButton{
     display: flex;
     align-items: center;
