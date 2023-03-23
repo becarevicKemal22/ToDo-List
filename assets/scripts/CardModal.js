@@ -87,6 +87,6 @@ export class CardModal extends Modal {
     }
 
     deleteCard() {
-        app.lists[this.callerCard.parentId].removeCard(this.callerCard);
+        globalThis.lists[this.callerCard.parentId].removeCard(this.callerCard);
     }
 }

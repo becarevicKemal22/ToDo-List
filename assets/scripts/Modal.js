@@ -31,7 +31,6 @@ export class Modal {
 
     show(callerCard) {
         this.callerCard = callerCard;
-        console.log("SHOW");
         if (this.onOpen) {
             this.onOpen();
         }

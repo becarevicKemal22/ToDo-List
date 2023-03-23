@@ -18,7 +18,6 @@ export class ListSelectModal extends Modal {
 
     getAvailableLists() {
         let lists = [];
-        console.log(globalThis.lists);
         for (const list of globalThis.lists) {
             if (list.id != this.callerCard.parentId) {
                 lists.push(list);
@@ -29,6 +28,7 @@ export class ListSelectModal extends Modal {
 
     addListCards(avalLists) {
         avalLists.forEach((lst, idx, avalLists) => {
+            console.log(lst.id);
             this.createCard(lst);
         });
     }
@@ -42,6 +42,7 @@ export class ListSelectModal extends Modal {
         `;
         card.addEventListener("click", () => {
             const currentList = globalThis.lists[this.callerCard.parentId];
+            console.log(list.id);
             const selectedList = globalThis.lists[list.id];
             currentList.removeCard(this.callerCard);
             selectedList.addExistingCard(this.callerCard);
