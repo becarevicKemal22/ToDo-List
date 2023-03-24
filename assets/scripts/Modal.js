@@ -37,7 +37,7 @@ export class Modal {
         this.HTMLElement.showModal();
     }
 
-    showAgain(){
+    showAgain() {
         if (this.onOpen) {
             this.onOpen();
         }

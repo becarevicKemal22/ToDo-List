@@ -7,7 +7,7 @@ export class ColorLabelModal extends Modal {
         this.HTMLElement.querySelector("ul").addEventListener(
             "click",
             (event) => {
-                if(event.target.closest(".labelChoice")){
+                if (event.target.closest(".labelChoice")) {
                     this.selectedColor = getComputedStyle(
                         event.target.closest(".labelChoice")
                     ).backgroundColor;

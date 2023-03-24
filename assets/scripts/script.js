@@ -32,7 +32,7 @@ class App {
 
         globalThis.lists = this.lists;
     }
-    
+
     removeList(list) {
         const idx = this.lists.indexOf(list);
         removeSpecificNode(this.listContainer, idx);
