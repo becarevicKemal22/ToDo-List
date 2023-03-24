@@ -41,9 +41,8 @@ export class ListSelectModal extends Modal {
             <p>${this.getListName(list)}</p>
         `;
         card.addEventListener("click", () => {
-            const currentList = globalThis.lists[this.callerCard.parentId];
-            console.log(list.id);
-            const selectedList = globalThis.lists[list.id];
+            const currentList = globalThis.lists.filter(list => list.id === this.callerCard.parentId)[0];
+            const selectedList = globalThis.lists.filter(listT => listT.id === list.id)[0];
             currentList.removeCard(this.callerCard);
             selectedList.addExistingCard(this.callerCard);
         });

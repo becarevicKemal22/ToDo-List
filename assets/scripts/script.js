@@ -20,7 +20,7 @@ class App {
     listContainer = document.querySelector(".listContainer");
 
     addList() {
-        let newList = new List(this.lists.length, this);
+        let newList = new List(this);
         this.lists.push(newList);
         this.listContainer
             .querySelector("#addListButton")

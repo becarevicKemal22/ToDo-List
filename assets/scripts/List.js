@@ -1,10 +1,10 @@
 import { Card } from "./Card.js";
 
 export class List {
-    constructor(id, app) {
+    constructor(app) {
         this.app = app;
         this.cards = [];
-        this.id = id;
+        this.id = Date.now();
         this.HTMLElement = document.importNode(
             document.getElementById("listTemplate").content.firstElementChild,
             true
@@ -63,6 +63,7 @@ export class List {
     }
 
     showOptionsModal() {
+        console.log(this.listModal.parentNode);
         const parent = this.listModal.parentNode;
         const newEl = this.listModal.cloneNode(true);
         parent.replaceChild(newEl, this.listModal);
@@ -151,6 +152,7 @@ export class List {
     }
 
     addExistingCard(card) {
+        console.log("Called at: " + this.id);
         this.cards.push(card);
         this.addCardButton.insertAdjacentElement(
             "beforeBegin",

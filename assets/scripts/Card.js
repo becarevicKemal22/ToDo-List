@@ -44,7 +44,8 @@ export class Card {
         newEl.classList.add("cardTitle");
         this.title = newEl;
         parent.replaceChild(newEl, this.inputEl);
-        globalThis.lists[this.parentId].renderElementsForCurrentTab(); //* Has to be here so that if the user makes a card in the completed tab it doesnt keep it there.
+        const list = globalThis.lists.filter(list => list.id === this.parentId)[0];
+        list.renderElementsForCurrentTab(); //* Has to be here so that if the user makes a card in the completed tab it doesnt keep it there.
     }
 
     changeTitleToInput() {
