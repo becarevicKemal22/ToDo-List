@@ -4,7 +4,7 @@ import { ColorLabelModal } from "./ColorLabelModal.js";
 import { List } from "./List.js";
 
 function removeSpecificNode(el, index) {
-    var children = el.children;
+    let children = el.children;
     if (children.length > 0) {
         el.removeChild(children[index]);
     }
@@ -25,7 +25,7 @@ class App {
         this.listContainer
             .querySelector("#addListButton")
             .insertAdjacentElement(
-                "beforeBegin",
+                "beforebegin",
                 this.lists[this.lists.length - 1].HTMLElement
             );
         newList.focusInput();

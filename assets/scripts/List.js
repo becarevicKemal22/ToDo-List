@@ -17,6 +17,7 @@ export class List {
         this.selectedTab = 0;
         this.optionsButton = this.HTMLElement.querySelector(".iconButton");
         this.listModal = document.querySelector(".listModal");
+        console.log(this.listModal);
 
         this.optionsButton.addEventListener("click", () => {
             this.showOptionsModal();
@@ -36,12 +37,14 @@ export class List {
 
         this.cardContainer.addEventListener("click", (event) => {
             if (event.target.tagName.toLowerCase() === "ul") {
-                return;
+
             } else if (
                 event.target.tagName.toLowerCase() === "button" ||
                 event.target.tagName.toLowerCase() === "i"
             ) {
                 const crd = event.target.closest(".card");
+                console.log(this.cards);
+                console.log(crd.dataset.id);
                 const el = this.cards.find((card) => card.id == crd.dataset.id);
                 el.changeTitleToInput();
             } else if (event.target.type === "checkbox") {
@@ -56,14 +59,14 @@ export class List {
             }
         });
         this.inputEl.addEventListener("keydown", (e) => {
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 this.inputEl.blur();
             }
         });
     }
 
     showOptionsModal() {
-        console.log(this.listModal.parentNode);
+        this.listModal = document.querySelector(".listModal");
         const parent = this.listModal.parentNode;
         const newEl = this.listModal.cloneNode(true);
         parent.replaceChild(newEl, this.listModal);
@@ -109,18 +112,18 @@ export class List {
             this.cardContainer.removeChild(child);
             child = this.cardContainer.lastElementChild.previousElementSibling;
         }
-        if (this.selectedTab == 0) {
+        if (this.selectedTab === 0) {
             for (const card of this.cards) {
                 this.addCardButton.insertAdjacentElement(
-                    "beforeBegin",
+                    "beforebegin",
                     card.HTMLElement
                 );
             }
-        } else if (this.selectedTab == 1) {
+        } else if (this.selectedTab === 1) {
             for (const card of this.cards) {
                 if (!card.HTMLElement.querySelector("input").checked) {
                     this.addCardButton.insertAdjacentElement(
-                        "beforeBegin",
+                        "beforebegin",
                         card.HTMLElement
                     );
                 }
@@ -129,7 +132,7 @@ export class List {
             for (const card of this.cards) {
                 if (card.HTMLElement.querySelector("input").checked) {
                     this.addCardButton.insertAdjacentElement(
-                        "beforeBegin",
+                        "beforebegin",
                         card.HTMLElement
                     );
                 }
@@ -145,17 +148,16 @@ export class List {
         const newCard = new Card(this.cards.length, this.id);
         this.cards.push(newCard);
         this.addCardButton.insertAdjacentElement(
-            "beforeBegin",
+            "beforebegin",
             newCard.HTMLElement
         );
         newCard.focusInput();
     }
 
     addExistingCard(card) {
-        console.log("Called at: " + this.id);
         this.cards.push(card);
         this.addCardButton.insertAdjacentElement(
-            "beforeBegin",
+            "beforebegin",
             card.HTMLElement
         );
         this.adjustCardIDs();

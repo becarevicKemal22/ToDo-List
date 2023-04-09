@@ -12,7 +12,7 @@ export class CardModal extends Modal {
         this.HTMLElement.querySelector("textarea").addEventListener(
             "keydown",
             (e) => {
-                if (e.keyCode == 13) {
+                if (e.keyCode === 13) {
                     this.HTMLElement.querySelector("textarea").blur();
                 }
             }

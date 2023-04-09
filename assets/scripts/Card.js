@@ -13,12 +13,12 @@ export class Card {
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
         this.inputEl.addEventListener("keydown", (e) => {
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 this.inputEl.blur();
             }
         });
 
-        this.inputEl.addEventListener("blur", (e) => {
+        this.inputEl.addEventListener("blur", () => {
             this.changeInputToTitle();
         });
     }
@@ -47,7 +47,7 @@ export class Card {
         const list = globalThis.lists.filter(
             (list) => list.id === this.parentId
         )[0];
-        list.renderElementsForCurrentTab(); //* Has to be here so that if the user makes a card in the completed tab it doesnt keep it there.
+        list.renderElementsForCurrentTab(); //* Has to be here so that if the user makes a card in the completed tab it doesn't keep it there.
     }
 
     changeTitleToInput() {
