@@ -1,5 +1,5 @@
 export class Card {
-    constructor(id, parentId) {
+    constructor(id, parentId, title = "", description = "") {
         this.id = id;
         this.parentId = parentId;
         this.HTMLElement = document.importNode(
@@ -8,8 +8,8 @@ export class Card {
         );
 
         this.setIDs();
-
-        this.description = "";
+        this.savedTitle = title;
+        this.description = description;
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
         this.inputEl.addEventListener("keydown", (e) => {
@@ -37,10 +37,14 @@ export class Card {
         this.inputEl.focus();
     }
 
-    changeInputToTitle() {
+    changeInputToTitle(loading = false) {
         const parent = this.HTMLElement.closest(".card");
         const newEl = document.createElement("h1");
-        newEl.textContent = this.inputEl.value;
+        if(loading){
+            newEl.textContent = this.savedTitle;
+        }else{
+            newEl.textContent = this.inputEl.value;
+        }
         newEl.classList.add("cardTitle");
         this.title = newEl;
         parent.replaceChild(newEl, this.inputEl);

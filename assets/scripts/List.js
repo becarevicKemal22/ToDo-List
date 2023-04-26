@@ -1,10 +1,12 @@
 import { Card } from "./Card.js";
 
 export class List {
-    constructor(app) {
+    constructor(app, id = null, cards = null) {
         this.app = app;
+        this.savedCards = cards;
         this.cards = [];
-        this.id = Date.now();
+
+        this.id = id ? id : Date.now();
         this.HTMLElement = document.importNode(
             document.getElementById("listTemplate").content.firstElementChild,
             true
@@ -17,7 +19,6 @@ export class List {
         this.selectedTab = 0;
         this.optionsButton = this.HTMLElement.querySelector(".iconButton");
         this.listModal = document.querySelector(".listModal");
-        console.log(this.listModal);
 
         this.optionsButton.addEventListener("click", () => {
             this.showOptionsModal();
@@ -62,6 +63,26 @@ export class List {
             if (e.keyCode === 13) {
                 this.inputEl.blur();
             }
+        });
+    }
+
+    loadCards(){
+        for(const crd of this.savedCards){
+            console.log("CAlled");
+            this.loadCard(crd.id, crd.parentId, crd.title, crd.description);
+        }
+    }
+
+    loadCard(id, parentId, title, description){
+        const newCard = new Card(id, this.id, title, description);
+        this.cards.push(newCard);
+        this.addCardButton.insertAdjacentElement(
+            "beforebegin",
+            newCard.HTMLElement
+        );
+        newCard.changeInputToTitle(true);
+        newCard.inputEl.addEventListener("blur", () => {
+            localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
         });
     }
 
@@ -144,6 +165,21 @@ export class List {
         this.inputEl.focus();
     }
 
+    serializeCards(){
+        let list = [];
+        for(const card of this.cards){
+            let obj = {
+                id: card.id,
+                parentId: card.parentId,
+                title: card.title.textContent,
+                description: card.description,
+            }
+            list.push(obj);
+        }
+        console.log(list);
+        return list;
+    }
+
     addCard() {
         const newCard = new Card(this.cards.length, this.id);
         this.cards.push(newCard);
@@ -151,6 +187,9 @@ export class List {
             "beforebegin",
             newCard.HTMLElement
         );
+        newCard.inputEl.addEventListener("blur", () => {
+            localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
+        });
         newCard.focusInput();
     }
 

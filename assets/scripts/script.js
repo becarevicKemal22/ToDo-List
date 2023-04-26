@@ -16,8 +16,29 @@ addListButton.addEventListener("click", () => {
 });
 
 class App {
+    savedLists = {...localStorage};
     lists = [];
     listContainer = document.querySelector(".listContainer");
+
+    constructor(){
+        for(const key in this.savedLists){
+            const list = JSON.parse(this.savedLists[key]);
+            this.loadList(key, list);
+        }
+    }
+
+    loadList(key, cards){
+        let newList = new List(this, key, cards);
+        this.lists.push(newList);
+        this.listContainer
+            .querySelector("#addListButton")
+            .insertAdjacentElement(
+                "beforebegin",
+                this.lists[this.lists.length - 1].HTMLElement
+            );
+        globalThis.lists = this.lists;
+        newList.loadCards();
+    }
 
     addList() {
         let newList = new List(this);
