@@ -1,5 +1,5 @@
 export class Card {
-    constructor(id, parentId, title = "", description = "") {
+    constructor(id, parentId, title = "", description = "", color="rgba(0, 0, 0, 0)") {
         this.id = id;
         this.parentId = parentId;
         this.HTMLElement = document.importNode(
@@ -10,6 +10,8 @@ export class Card {
         this.setIDs();
         this.savedTitle = title;
         this.description = description;
+        this.currentColor = color;
+        this.HTMLElement.style.borderLeftColor = this.currentColor;
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
         this.inputEl.addEventListener("keydown", (e) => {

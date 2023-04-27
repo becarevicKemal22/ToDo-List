@@ -51,6 +51,7 @@ export class CardModal extends Modal {
     }
 
     updateElement() {
+        console.log(this.callerCard.description);
         let callerCardElement = this.callerCard.HTMLElement;
         this.setTitle(
             callerCardElement.querySelector(".cardTitle").textContent
@@ -76,6 +77,7 @@ export class CardModal extends Modal {
 
     applyColorLabel() {
         this.callerCard.HTMLElement.style.borderLeftColor = this.colorToApply;
+        this.callerCard.currentColor = this.colorToApply;
     }
 
     save() {
@@ -84,9 +86,16 @@ export class CardModal extends Modal {
         if (this.colorToApply) {
             this.applyColorLabel();
         }
+        const list = globalThis.lists.filter((l) => {
+            return l.id === this.callerCard.parentId;
+        })[0];
+        list.saveCards();
     }
 
     deleteCard() {
-        globalThis.lists[this.callerCard.parentId].removeCard(this.callerCard);
+        const list = globalThis.lists.filter((l) => {
+            return l.id === this.callerCard.parentId;
+        })[0];
+        list.removeCard(this.callerCard);
     }
 }

@@ -68,13 +68,12 @@ export class List {
 
     loadCards(){
         for(const crd of this.savedCards){
-            console.log("CAlled");
-            this.loadCard(crd.id, crd.parentId, crd.title, crd.description);
+            this.loadCard(crd.id, crd.parentId, crd.title, crd.description, crd.currentColor);
         }
     }
 
-    loadCard(id, parentId, title, description){
-        const newCard = new Card(id, this.id, title, description);
+    loadCard(id, parentId, title, description, color){
+        const newCard = new Card(id, this.id, title, description, color);
         this.cards.push(newCard);
         this.addCardButton.insertAdjacentElement(
             "beforebegin",
@@ -173,10 +172,10 @@ export class List {
                 parentId: card.parentId,
                 title: card.title.textContent,
                 description: card.description,
+                currentColor: card.currentColor,
             }
             list.push(obj);
         }
-        console.log(list);
         return list;
     }
 
@@ -208,6 +207,11 @@ export class List {
         this.cards.splice(idx, 1);
         this.cardContainer.removeChild(card.HTMLElement);
         this.adjustCardIDs();
+        localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
+    }
+
+    saveCards(){
+        localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
     }
 
     adjustCardIDs() {
