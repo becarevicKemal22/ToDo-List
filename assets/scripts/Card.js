@@ -1,5 +1,5 @@
 export class Card {
-    constructor(id, parentId, title = "", description = "", color="rgba(0, 0, 0, 0)") {
+    constructor(id, parentId, title = "", description = "", color="rgba(0, 0, 0, 0)", checked) {
         this.id = id;
         this.parentId = parentId;
         this.HTMLElement = document.importNode(
@@ -12,6 +12,7 @@ export class Card {
         this.description = description;
         this.currentColor = color;
         this.HTMLElement.style.borderLeftColor = this.currentColor;
+        this.HTMLElement.querySelector(".checkbox").previousElementSibling.checked = checked;
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
 
         this.inputEl.addEventListener("keydown", (e) => {

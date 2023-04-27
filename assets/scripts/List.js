@@ -43,19 +43,19 @@ export class List {
         });
 
         this.cardContainer.addEventListener("click", (event) => {
+            console.log(event.target.classList)
             if (event.target.tagName.toLowerCase() === "ul") {
 
+            } else if (event.target.classList.contains("completeCheck")){
+                this.renderElementsForCurrentTab();
+                localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
             } else if (
                 event.target.tagName.toLowerCase() === "button" ||
                 event.target.tagName.toLowerCase() === "i"
             ) {
                 const crd = event.target.closest(".card");
-                console.log(this.cards);
-                console.log(crd.dataset.id);
                 const el = this.cards.find((card) => card.id == crd.dataset.id);
                 el.changeTitleToInput();
-            } else if (event.target.type === "checkbox") {
-                this.renderElementsForCurrentTab();
             } else {
                 if (event.target.tagName === "INPUT") {
                     return;
@@ -78,12 +78,12 @@ export class List {
 
     loadCards(){
         for(const crd of this.savedCards){
-            this.loadCard(crd.id, crd.parentId, crd.title, crd.description, crd.currentColor);
+            this.loadCard(crd.id, crd.parentId, crd.title, crd.description, crd.currentColor, crd.checked);
         }
     }
 
-    loadCard(id, parentId, title, description, color){
-        const newCard = new Card(id, this.id, title, description, color);
+    loadCard(id, parentId, title, description, color, checked){
+        const newCard = new Card(id, this.id, title, description, color, checked);
         this.cards.push(newCard);
         this.addCardButton.insertAdjacentElement(
             "beforebegin",
@@ -184,6 +184,7 @@ export class List {
                 title: card.title.textContent,
                 description: card.description,
                 currentColor: card.currentColor,
+                checked: card.HTMLElement.querySelector(".checkbox").previousElementSibling.checked,
             }
             list.push(obj);
         }
