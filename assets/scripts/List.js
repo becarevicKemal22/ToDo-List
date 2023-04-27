@@ -3,7 +3,12 @@ import { Card } from "./Card.js";
 export class List {
     constructor(app, id = null, cards = null) {
         this.app = app;
-        this.savedCards = cards;
+        if(cards){
+            this.title = cards[0];
+            cards.splice(0, 1);
+            this.savedCards = cards;
+        }
+
         this.cards = [];
 
         this.id = id ? id : Date.now();
@@ -14,6 +19,7 @@ export class List {
         this.cardContainer = this.HTMLElement.querySelector(".cardList");
         this.addCardButton = this.cardContainer.querySelector("#addCard");
         this.inputEl = this.HTMLElement.querySelector(".nameInput");
+        this.inputEl.value = this.title ? this.title : "";
         this.tabElements = this.HTMLElement.querySelectorAll(".tab");
         this.tabElements = Array.from(this.tabElements);
         this.selectedTab = 0;
@@ -64,6 +70,10 @@ export class List {
                 this.inputEl.blur();
             }
         });
+        this.inputEl.addEventListener("blur", () => {
+            this.title = this.inputEl.value;
+            localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
+        })
     }
 
     loadCards(){
@@ -166,6 +176,7 @@ export class List {
 
     serializeCards(){
         let list = [];
+        list.push(this.inputEl.value);
         for(const card of this.cards){
             let obj = {
                 id: card.id,
@@ -199,6 +210,7 @@ export class List {
             card.HTMLElement
         );
         this.adjustCardIDs();
+        localStorage.setItem(this.id, JSON.stringify(this.serializeCards()));
         this.renderElementsForCurrentTab();
     }
 

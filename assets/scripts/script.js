@@ -21,10 +21,11 @@ class App {
     listContainer = document.querySelector(".listContainer");
 
     constructor(){
-        for(const key in this.savedLists){
-            const list = JSON.parse(this.savedLists[key]);
-            this.loadList(key, list);
-        }
+        Object.keys(this.savedLists).reverse()
+            .forEach((key) => {
+                const list = JSON.parse(this.savedLists[key]);
+                this.loadList(key, list);
+            });
     }
 
     loadList(key, cards){
@@ -58,7 +59,7 @@ class App {
         const idx = this.lists.indexOf(list);
         removeSpecificNode(this.listContainer, idx);
         this.lists.splice(idx, 1);
-        console.log(this.lists);
+        localStorage.removeItem(list.id);
         globalThis.lists = this.lists;
     }
 }
